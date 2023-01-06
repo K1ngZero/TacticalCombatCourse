@@ -22,6 +22,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AddDesiredArmLength(float InLengthOffset);
 
+	void SetMinDesiredArmLength(float InValue) { DesiredArmLength = InValue; }
+	void SetMaxDesiredArmLength(float InValue) { MaxDesiredArmLength = InValue; }
+	void SetSmoothArmLengthSpeed(float InValue) { SmoothArmLengthSpeed = InValue; }
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Lag")
 	float DesiredArmLength = 0.0f;

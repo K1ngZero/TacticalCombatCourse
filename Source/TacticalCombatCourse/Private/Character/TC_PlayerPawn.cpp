@@ -29,8 +29,8 @@ void ATC_PlayerPawn::BeginPlay()
 void ATC_PlayerPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	SetActorLocation(FMath::VInterpTo(GetActorLocation(), DesiredLocation, DeltaTime, 6.0f));
-	SetActorRotation(FMath::RInterpTo(GetActorRotation(), DesiredRotation, DeltaTime, 6.0f));
+	SetActorLocation(FMath::VInterpTo(GetActorLocation(), DesiredLocation, DeltaTime, MovementInterpSpeed));
+	SetActorRotation(FMath::RInterpTo(GetActorRotation(), DesiredRotation, DeltaTime, RotationInterpSpeed));
 }
 
 void ATC_PlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -47,25 +47,40 @@ void ATC_PlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 void ATC_PlayerPawn::ZoomCamera(float InAxis)
 {
-	SpringArmComponent->AddDesiredArmLength(InAxis * ZoomSpeed);
+	SpringArmComponent->AddDesiredArmLength(InAxis * CameraZoomSpeed);
 }
 
 void ATC_PlayerPawn::MoveUp(float InAxis)
 {
-	DesiredLocation += GetActorForwardVector() * InAxis * 10.0f;
+	DesiredLocation += GetActorForwardVector() * InAxis * MovementSpeed;
 }
 
 void ATC_PlayerPawn::MoveRight(float InAxis)
 {
-	DesiredLocation += GetActorRightVector() * InAxis * 10.0f;
+	DesiredLocation += GetActorRightVector() * InAxis * MovementSpeed;
 }
 
 void ATC_PlayerPawn::TurnRight()
 {
-	DesiredRotation.Yaw += 90.0f;
+	DesiredRotation.Yaw += RotationStep;
 }
 
 void ATC_PlayerPawn::TurnLeft()
 {
-	DesiredRotation.Yaw -= 90.0f;
+	DesiredRotation.Yaw -= RotationStep;
+}
+
+void ATC_PlayerPawn::CHEAT_SetCameraZoomInterpSpeed(float InValue)
+{
+	SpringArmComponent->SetSmoothArmLengthSpeed(InValue);
+}
+
+void ATC_PlayerPawn::CHEAT_SetCameraMinZoom(float InValue)
+{
+	SpringArmComponent->SetMinDesiredArmLength(InValue);
+}
+
+void ATC_PlayerPawn::CHEAT_SetCameraMaxZoom(float InValue)
+{
+	SpringArmComponent->SetMaxDesiredArmLength(InValue);
 }

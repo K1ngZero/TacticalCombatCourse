@@ -51,6 +51,43 @@ protected:
 	UPROPERTY()
 	FRotator DesiredRotation = FRotator::ZeroRotator;
 
-	UPROPERTY(EditDefaultsOnly)
-	float ZoomSpeed = 30.0f;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float MovementSpeed = 10.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float MovementInterpSpeed = 6.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float RotationStep = 90.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float RotationInterpSpeed = 6.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float CameraZoomSpeed = 30.0f;
+
+public:
+	UFUNCTION(BlueprintCallable)
+	void CHEAT_SetMovementSpeed(float InValue) { MovementSpeed = InValue; }
+
+	UFUNCTION(BlueprintCallable)
+	void CHEAT_SetMovementInterpSpeed(float InValue) { MovementInterpSpeed = InValue; }
+
+	UFUNCTION(BlueprintCallable)
+	void CHEAT_SetRotationStep(float InValue) { RotationStep = InValue; }
+
+	UFUNCTION(BlueprintCallable)
+	void CHEAT_SetRotationInterpSpeed(float InValue) { RotationInterpSpeed = InValue; }
+
+	UFUNCTION(BlueprintCallable)
+	void CHEAT_SetCameraZoomSpeed(float InValue) { CameraZoomSpeed = InValue; }
+
+	UFUNCTION(BlueprintCallable)
+	void CHEAT_SetCameraZoomInterpSpeed(float InValue);
+
+	UFUNCTION(BlueprintCallable)
+	void CHEAT_SetCameraMinZoom(float InValue);
+
+	UFUNCTION(BlueprintCallable)
+	void CHEAT_SetCameraMaxZoom(float InValue);
 };
